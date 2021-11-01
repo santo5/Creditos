@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Vehicles.API.Data;
 
 namespace Creditos.API
 {
@@ -24,6 +25,8 @@ namespace Creditos.API
             {
                 x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
+
+            services.AddTransient<SeedDb>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
