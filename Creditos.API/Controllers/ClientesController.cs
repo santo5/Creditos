@@ -1,5 +1,6 @@
 ﻿using Creditos.API.Data;
 using Creditos.API.Data.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Creditos.API.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ClientesController : Controller
     {
         private readonly DataContext _context;
