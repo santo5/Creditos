@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Creditos.API.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    
     public class CobrosController : Controller
     {
         private readonly DataContext _context;
