@@ -2,37 +2,37 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Creditos.API.Data.Entities
 {
-    public class Cliente
+    public class Credito
     {
         public int Id { get; set; }
 
-        [Display(Name = "Documento")]
+        [Display(Name = "Fecha del credito")]
         [MaxLength(50, ErrorMessage = "El campo {0} no puede tener más de {1} carácteres.")]
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
-        public string Documento { get; set; }
+        public string Fecha { get; set; }
+
+        [Display(Name = "Cobro")]
+        [MaxLength(50, ErrorMessage = "El campo {0} no puede tener más de {1} carácteres.")]
+        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
+        public Cobro Description { get; set; }
 
         [Display(Name = "Nombre Completo")]
         [MaxLength(100, ErrorMessage = "El campo {0} no puede tener más de {1} carácteres.")]
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
-        public string Nombre { get; set; }
+        public Cliente Nombre { get; set; }
 
-
-        [Display(Name = "Direccion")]
+        [Display(Name = "Valor del credito")]
         [MaxLength(50, ErrorMessage = "El campo {0} no puede tener más de {1} carácteres.")]
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
-        public string Direccion { get; set; }
+        public string Valor { get; set; }
 
-        [Display(Name = "Telefono")]
+        [Display(Name = "Verificacion")]
         [MaxLength(50, ErrorMessage = "El campo {0} no puede tener más de {1} carácteres.")]
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
-        public string Telefono { get; set; }
-
-        [JsonIgnore]
-        public ICollection<Credito> Creditos { get; set; }
+        public string Verificacion { get; set; }
     }
 }

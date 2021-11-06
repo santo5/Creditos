@@ -1,0 +1,26 @@
+﻿@model Creditos.API.Models.CreditoViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Editar</h1>
+
+<h4>Credito</h4>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="EditCredito">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+
+            <partial name="_Credito" />
+
+            <div class="form-group">
+                <input type="submit" value="Guardar" class="btn btn-primary" />
+                <a asp-action="Index" asp-route-id="@Model.Id" class="btn btn-success">Regresar</a>
+            </div>
+        </form>
+    </div>
+</div>
+

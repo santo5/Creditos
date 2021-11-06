@@ -74,6 +74,43 @@ namespace Creditos.API.Migrations
                     b.ToTable("Cobros");
                 });
 
+            modelBuilder.Entity("Creditos.API.Data.Entities.Credito", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("DescriptionId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Fecha")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("NombreId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Valor")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Verificacion")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DescriptionId");
+
+                    b.HasIndex("NombreId");
+
+                    b.ToTable("Creditos");
+                });
+
             modelBuilder.Entity("Creditos.API.Data.Entities.User", b =>
                 {
                     b.Property<string>("Id")
@@ -293,6 +330,25 @@ namespace Creditos.API.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Creditos.API.Data.Entities.Credito", b =>
+                {
+                    b.HasOne("Creditos.API.Data.Entities.Cobro", "Description")
+                        .WithMany("Creditos")
+                        .HasForeignKey("DescriptionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Creditos.API.Data.Entities.Cliente", "Nombre")
+                        .WithMany("Creditos")
+                        .HasForeignKey("NombreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Description");
+
+                    b.Navigation("Nombre");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -342,6 +398,16 @@ namespace Creditos.API.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Creditos.API.Data.Entities.Cliente", b =>
+                {
+                    b.Navigation("Creditos");
+                });
+
+            modelBuilder.Entity("Creditos.API.Data.Entities.Cobro", b =>
+                {
+                    b.Navigation("Creditos");
                 });
 #pragma warning restore 612, 618
         }

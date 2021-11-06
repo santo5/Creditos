@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Creditos.API.Migrations
 {
-    public partial class AddUserTables : Migration
+    public partial class AddTables : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -186,6 +186,35 @@ namespace Creditos.API.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Creditos",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Fecha = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    DescriptionId = table.Column<int>(type: "int", nullable: false),
+                    NombreId = table.Column<int>(type: "int", nullable: false),
+                    Valor = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Verificacion = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Creditos", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Creditos_Clientes_NombreId",
+                        column: x => x.NombreId,
+                        principalTable: "Clientes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Creditos_Cobros_DescriptionId",
+                        column: x => x.DescriptionId,
+                        principalTable: "Cobros",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -236,6 +265,16 @@ namespace Creditos.API.Migrations
                 table: "Cobros",
                 column: "Description",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Creditos_DescriptionId",
+                table: "Creditos",
+                column: "DescriptionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Creditos_NombreId",
+                table: "Creditos",
+                column: "NombreId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -256,16 +295,19 @@ namespace Creditos.API.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Clientes");
-
-            migrationBuilder.DropTable(
-                name: "Cobros");
+                name: "Creditos");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Clientes");
+
+            migrationBuilder.DropTable(
+                name: "Cobros");
         }
     }
 }
